@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fill Your Business Profile</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flagkit/4.2.0/flagkit.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            background-color: white;
+        }
+
+        .form-container {
+            background-color: #d7d7db;
+            max-width: 600px;
+            margin: 50px auto;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .header {
+            background-color: #130b33;
+            color: white;
+            width: 100%;
+            height: 100px; /* Maximum height */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 4px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header .back-arrow {
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        .header .header-text {
+            font-size: 24px;
+            flex-grow: 1;
+            text-align: left;
+            margin: 10px;
+        }
+
+        .card {
+            background-color: #d7d7db;
+            border: none;
+            padding: 0;
+        }
+
+        .form-control, .form-select {
+            max-width: 550px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: left;
+            border: 1px solid #636262;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 15px;
+            padding-left: 50px;
+            background-color: #636262;
+            color: white;
+            font-size: 16px;
+        }
+
+        .form-control::placeholder {
+            color: #e0e0e0; /* Light gray for better visibility */
+            opacity: 1; /* Ensure placeholder is fully opaque */
+        }
+
+        .form-control-textarea {
+            max-width: 550px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: left;
+            border: 1px solid #636262;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 15px;
+            background-color: #636262;
+            color: white;
+            height: auto;
+            resize: vertical;
+            font-size: 16px;
+        }
+
+        .form-control-textarea::placeholder {
+            color: #e0e0e0; /* Light gray for better visibility */
+            opacity: 1; /* Ensure placeholder is fully opaque */
+        }
+
+        .input-group {
+            max-width: 550px;
+            margin-left: auto;
+            margin-right: auto;
+            color: white;
+        }
+
+        .input-group .form-select {
+            width: 90px;
+            padding-left: 10px;
+            color: white;
+        }
+
+        .input-group .form-control {
+            flex: 5;
+            padding-left: 40px;
+            color: white;
+        }
+
+        .form-group {
+            display: flex;
+            justify-content: center;
+            position: relative;
+            color: white;
+        }
+
+        .form-group i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+        }
+
+        .camera-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: white;
+        }
+
+        .btn-custom {
+            padding: 18px 32px;
+            font-size: 16px;
+            border-radius: 30px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            overflow: hidden;
+            background-color: #130b33;
+        }
+
+        .btn-custom .arrow {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+            transition: 0.3s ease;
+            color: white;
+        }
+
+        .btn-custom:hover .arrow {
+            right: 30px;
+        }
+
+        /* Hide the file input */
+        .file-input {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <div class="header">
+        <i class="fas fa-arrow-left back-arrow"></i> <!-- Back arrow icon -->
+        <div class="header-text">Fill Your Business Profile</div>
+    </div>
+    <div class="card p-4">
+        <form id="businessProfileForm">
+            <div class="form-group mb-3">
+                <i class="fas fa-briefcase"></i>
+                <input type="text" class="form-control" id="businessTitle" name="businessTitle" placeholder="Business Title" required>
+            </div>
+            <div class="form-group mb-3">
+                <i class="fas fa-tags"></i>
+                <input type="text" class="form-control" id="businessCategory" name="businessCategory" placeholder="Business Category" required>
+            </div>
+            <div class="form-group mb-3">
+                <i class="fas fa-pencil-alt"></i>
+                <textarea class="form-control form-control-textarea" id="description" name="description" placeholder="Description" rows="2" required></textarea>
+            </div>
+            <div class="form-group mb-3">
+                <i class="fas fa-id-card"></i>
+                <input type="text" class="form-control" id="gstCode" name="gstCode" placeholder="GST Code" required>
+            </div>
+            <div class="form-group mb-3">
+                <i class="fas fa-briefcase"></i>
+                <input type="text" class="form-control" id="businessType" name="businessType" placeholder="Business Type" required>
+            </div>
+            
+            <div class="form-group mb-3">
+                <i class="fas fa-id-card"></i>
+                <input type="text" class="form-control" id="aadhaarNo" name="aadhaarNo" placeholder="Aadhaar Number" required>
+            </div>
+            <div class="form-group mb-3">
+                <i class="fas fa-id-card"></i>
+                <input type="text" class="form-control" id="idNo" name="idNo" placeholder="ID Number" required>
+            </div>
+            <div class="form-group mb-3">
+                <i class="fas fa-briefcase"></i>
+                <i class="fas fa-id-card"></i>
+                <input type="file" class="form-control" id="servicePic" name="servicePic" placeholder="Service Pic" required>
+                <i class="fas fa-camera camera-icon" id="cameraIcon"></i>
+            </div>
+            <button type="submit" class="btn btn-primary btn-custom w-50">
+                Continue
+                <i class="fas fa-arrow-right arrow"></i>
+               
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // File input and camera icon interaction
+        const cameraIcon = document.getElementById('cameraIcon');
+        const fileInput = document.getElementById('servicePic');
+
+        cameraIcon.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                // Handle the file upload here
+                console.log('File selected:', file);
+                // You can display the selected image here if needed
+            }
+        });
+    });
+</script>
+</body>
+</html>

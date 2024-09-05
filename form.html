@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fill your profile </title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flagkit/4.2.0/flagkit.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            background-color: white;
+        }
+
+        .form-container {
+            background-color: #d7d7db;
+            max-width: 600px;
+            margin: 50px auto;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .header {
+            background-color: #130b33;
+            color: white;
+            width: 100%;
+            height: 100px; /* Maximum height */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header .back-arrow {
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        .header .header-text {
+            font-size: 24px;
+            flex-grow: 1;
+            text-align: left;
+            margin: 15px;
+        }
+
+        .card {
+            background-color: #d7d7db;
+            border: none;
+            padding: 0;
+        }
+
+        .profile-pic-container {
+            position: relative;
+            display: inline-block;
+            width: 100px;
+            height: 100px;
+            overflow: hidden;
+            border-radius: 50%;
+            margin: 20px auto;
+        }
+
+        .profile-pic {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background-color: #ffffff;
+            border: 2px solid #e0e0e0;
+            background-image: url('https://www.example.com/default-person-image.png'); /* Default person image */
+            background-size: cover;
+            background-position: center;
+        }
+
+        .camera-icon {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border-radius: 50%;
+            padding: 5px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .form-control, .form-select {
+            max-width: 550px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: left;
+            border: 1px solid #636262;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 15px;
+            padding-left: 50px;
+            background-color: #636262;
+            color: white;
+        }
+       
+        .input-group {
+            max-width: 550px;
+            margin-left: auto;
+            margin-right: auto;
+            color: white;
+        }
+
+        .input-group .form-select {
+            width: 90px;
+            padding-left: 10px;
+            color: white;
+        }
+
+        .input-group .form-control {
+            flex: 5;
+            padding-left: 40px;
+            color: white;
+        }
+
+        .form-group {
+            display: flex;
+            justify-content: center;
+            position: relative;
+            color: white;
+        }
+
+        .form-group i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+        }
+
+        .btn-custom {
+            padding: 18px 32px;
+            font-size: 16px;
+            border-radius: 30px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            overflow: hidden;
+            background-color: #130b33;
+        }
+
+        .btn-custom .arrow {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+            transition: 0.3s ease;
+            color: white;
+        }
+
+        .btn-custom:hover .arrow {
+            right: 30px;
+        }
+
+        /* Hide the file input */
+        .file-input {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <div class="header">
+        <i class="fas fa-arrow-left back-arrow"></i> <!-- Back arrow icon -->
+        <div class="header-text">Fill Your Profile</div>
+    </div>
+    <div class="card p-4">
+        <div class="text-center mb-4">
+            <div class="profile-pic-container">
+                <img src="https://www.example.com/default-person-image.png" alt="Profile Image" class="profile-pic">
+                <i class="fas fa-camera camera-icon" id="cameraIcon"></i> <!-- Camera icon for updating photo -->
+                <input type="file" id="fileInput" class="file-input" accept="image/*">
+            </div>
+        </div>
+        <form id="userProfileForm">
+            <div class="form-group mb-3">
+                <i class="fas fa-user"></i>
+                <input type="text" class="form-control" id="fullName" name="fullName" placeholder="Full Name" required>
+            </div>
+            <div class="form-group mb-3">
+                <i class="fas fa-map-marker-alt"></i>
+                <input type="text" class="form-control" id="address" name="address" placeholder="Address" required>
+            </div>
+            <div class="form-group mb-3">
+                <i class="fas fa-calendar-alt"></i>
+                <input type="date" class="form-control" id="dob" name="dob" placeholder="Date of Birth" required>
+            </div>
+            <div class="form-group mb-3">
+                <i class="fas fa-venus-mars"></i>
+                <select class="form-select" id="gender" name="gender" required>
+                    <option value="" selected>Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="form-group mb-3">
+                <i class="fas fa-envelope"></i>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+            </div>
+            <div class="form-group mb-3">
+                <div class="input-group">
+                    <select class="form-select" id="countryCode" name="countryCode" required>
+                        <option value="+1" data-flag="us">+1</option>
+                        <option value="+44" data-flag="gb">+44</option>
+                        <option value="+91" data-flag="in">+91</option>
+                        <option value="+61" data-flag="au">+61</option>
+                    </select>
+                    <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone Number" required>
+                </div>
+            </div>
+            <div class="form-group mb-3">
+                <i class="fas fa-home"></i>
+                <input type="text" class="form-control" id="houseName" name="houseName" placeholder="House Name" required>
+            </div>
+            <div class="form-group mb-3">
+                <i class="fas fa-landmark"></i>
+                <input type="text" class="form-control" id="landmark" name="landmark" placeholder="Landmark">
+            </div>
+            <div class="form-group mb-3">
+                <i class="fas fa-map-pin"></i>
+                <input type="number" class="form-control" id="pincode" name="pincode" placeholder="Pincode" required>
+            </div>
+            <div class="form-group mb-3">
+                <i class="fas fa-city"></i>
+                <input type="text" class="form-control" id="district" name="district" placeholder="District" required>
+            </div>
+            <div class="form-group mb-3">
+                <i class="fas fa-map-signs"></i>
+                <input type="text" class="form-control" id="state" name="state" placeholder="State" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-custom w-50">
+                Continue
+                <i class="fas fa-arrow-right arrow"></i>
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const countryCodeSelect = document.getElementById('countryCode');
+        countryCodeSelect.querySelectorAll('option').forEach(option => {
+            const flag = option.getAttribute('data-flag');
+            if (flag) {
+                option.innerHTML = `<span class="flag-icon flag-icon-${flag}"></span> ${option.textContent}`;
+            }
+        });
+
+        // File input and camera icon interaction
+        const cameraIcon = document.getElementById('cameraIcon');
+        const fileInput = document.getElementById('fileInput');
+
+        cameraIcon.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                // Handle the file upload here
+                console.log('File selected:', file);
+                // You can display the selected image here if needed
+            }
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Password</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .password-container {
+            background-color: #d7d7db; /* Lighter blue background */
+            padding: 30px; /* Increased padding */
+            border-radius: 15px; /* Increased border-radius */
+            width: 90%;
+            max-width: 400px;
+            box-sizing: border-box;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            height: 60vh;
+        }
+
+        .title-bar {
+            background-color: #130b33; /* Same color as form background */
+            color:white;
+            padding: 15px;
+            border-radius: 15px 15px 0 0; /* Increased border-radius */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: absolute;
+            top: -20px;
+            left: 0;
+            right: 0;
+        }
+
+        .title-bar .back-arrow {
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .title-bar .title-text {
+            font-size: 14px;
+            text-align: center;
+            flex-grow: 1;
+            margin-right: 200px;
+        }
+
+        p {
+            text-align: left;
+            margin-bottom: 20px;
+            font-size: 20px;
+            color:  #130b33;
+        }
+
+        .form-content {
+            margin-top: auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 16px 50px 16px 50px; /* Increased padding to add space for icons */
+            font-size: 16px;
+            border: none; /* No border */
+            border-radius: 15px; /* Increased border-radius */
+            box-sizing: border-box;
+            background-color: #333; /* White text boxes */
+        }
+
+        .form-group i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color:white;
+        }
+
+        .form-group i.fa-lock {
+            left: 12px; /* Lock icon on the left */
+        }
+
+        .form-group i.password-visibility-toggle {
+            right: 12px; /* Eye icon on the right */
+        }
+
+        .continue-button {
+            width: 100%;
+            padding: 14px; /* Increased padding */
+            background-color:#130b33;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .continue-button:hover {
+            background-color: #130b33;
+        }
+
+        .continue-button .arrow {
+            position: absolute;
+            right: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="password-container">
+        <div class="title-bar">
+            <i class="fas fa-arrow-left back-arrow"></i>
+            <div class="title-text">FORGOT PASSWORD</div>
+        </div>
+
+        <div class="form-content">
+            <p>Create Your New Password</p>
+
+            <div class="form-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" placeholder="New Password" id="newPassword">
+                <i class="fas fa-eye password-visibility-toggle" onclick="toggleVisibility('newPassword')"></i>
+            </div>
+
+            <div class="form-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" placeholder="Confirm Password" id="confirmPassword">
+                <i class="fas fa-eye password-visibility-toggle" onclick="toggleVisibility('confirmPassword')"></i>
+            </div>
+
+            <button type="button" class="continue-button" onclick="submitPassword()">
+                Continue
+                <i class="fas fa-arrow-right arrow"></i>
+            </button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+    <script>
+        function submitPassword() {
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (newPassword === confirmPassword && newPassword.length > 0) {
+                alert('Password successfully set!');
+            } else {
+                alert('Passwords do not match or are empty.');
+            }
+        }
+
+        function toggleVisibility(id) {
+            const passwordField = document.getElementById(id);
+            const eyeIcon = passwordField.nextElementSibling;
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordField.type = 'password';
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter PIN</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .pin-container {
+            background-color: #d7d7db;
+            padding: 20px;
+            border-radius: 5px;
+            position: relative;
+            width: 90%;
+            max-width: 400px;
+            box-sizing: border-box;
+        }
+
+        .title-bar {
+            background-color:#130b33; /* Title bar background color */
+            color: white; /* Black text color */
+            padding: 10px;
+            border-radius: 5px 5px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: absolute;
+            top: -20px; /* Adjusted to add space above */
+            left: 0;
+            right: 0;
+            margin-bottom: 30px; 
+        }
+
+        .title-bar .back-arrow {
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .title-bar .title-text {
+            font-size: 15px;
+            text-align: center;
+            flex-grow: 1;
+            margin-right: 200px;
+        }
+
+        .title-bar .settings-icon {
+            font-size: 18px;
+        }
+
+        .phone-number {
+            margin-top: 150px; /* Adjusted space to start around the third or fourth of the form's height */
+            margin-bottom: 30px; /* Space below the phone number paragraph */
+            font-size: 16px;
+            color: #333;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            background-color:#d7d7db ;
+        }
+
+        .pin-inputs {
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: center;
+            background-color:#d7d7db;
+        }
+
+        .pin-inputs input {
+            width: 40px;
+            height: 40px;
+            padding: 10px;
+            font-size: 20px;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            margin: 0 5px;
+            letter-spacing: 5px;
+            -webkit-text-security: disc;
+            background-color:  #636262;
+        }
+
+        .resend-code {
+            margin-top: 10px;
+            color: #130b33;;
+            cursor: not-allowed;
+            opacity: 0.5;
+            font-size: 14px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .resend-code.active {
+            cursor: pointer;
+            opacity: 1;
+        }
+
+        .verify-button {
+            width: 100%;
+            padding: 12px;
+            background-color: #130b33;;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .verify-button:hover {
+            background-color: #130b33;;
+        }
+
+        .verify-button .arrow {
+            position: absolute;
+            right: 20px;
+            font-size: 18px;
+        }
+
+        .number-pad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+           
+        }
+
+        .number-pad button {
+            padding: 10px;
+            font-size: 20px;
+            border: none;
+            background-color:#d7d7db ;
+            cursor: pointer;
+            
+        }
+
+        .number-pad button:hover {
+            background-color: #d7d7db;
+        }
+
+        @media (max-width: 600px) {
+            .pin-container {
+                width: 95%;
+            }
+            .pin-inputs input {
+                width: 35px;
+                height: 30px;
+                font-size: 18px;
+                border-radius: 3px;
+               
+            }
+            .number-pad button {
+                padding: 10px;
+                font-size: 18px;
+                
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="pin-container">
+        <div class="title-bar">
+            <i class="fas fa-arrow-left back-arrow"></i> <!-- Back arrow icon -->
+            <div class="title-text">FORGOT PASSWORD</div>
+        </div>
+        
+        <div class="phone-number" id="phoneNumberDisplay">
+            Code has been Sent to +1 (555) 123-4567
+        </div>
+        
+        <div class="pin-inputs">
+            <input type="password" class="pin-input" maxlength="1" id="pin1" readonly>
+            <input type="password" class="pin-input" maxlength="1" id="pin2" readonly>
+            <input type="password" class="pin-input" maxlength="1" id="pin3" readonly>
+            <input type="password" class="pin-input" maxlength="1" id="pin4" readonly>
+        </div>
+        
+        <div id="resendCode" class="resend-code">Resend Code (1:00)</div>
+        
+        <button type="button" class="verify-button" onclick="verifyPin()">
+            Verify
+            <i class="fas fa-arrow-right arrow"></i> <!-- Arrow icon -->
+        </button>
+        
+        <div class="number-pad">
+            <button type="button" onclick="appendNumber(1)">1</button>
+            <button type="button" onclick="appendNumber(2)">2</button>
+            <button type="button" onclick="appendNumber(3)">3</button>
+            <button type="button" onclick="appendNumber(4)">4</button>
+            <button type="button" onclick="appendNumber(5)">5</button>
+            <button type="button" onclick="appendNumber(6)">6</button>
+            <button type="button" onclick="appendNumber(7)">7</button>
+            <button type="button" onclick="appendNumber(8)">8</button>
+            <button type="button" onclick="appendNumber(9)">9</button>
+            <button type="button" onclick="clearPin()">C</button>
+            <button type="button" onclick="appendNumber(0)">0</button>
+            <button type="button" onclick="deleteNumber()">⌫</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+    <script>
+        let currentInput = 1;
+        let resendTime = 60;
+        const resendElement = document.getElementById('resendCode');
+        let resendInterval;
+
+        function sendCode() {
+            alert('Code sent to ' + document.getElementById('phoneNumberDisplay').innerText);
+            resendTime = 60;
+            resendElement.classList.remove('active');
+            resendElement.removeAttribute('onclick');
+            resendInterval = setInterval(updateResendCode, 1000);
+        }
+
+        function appendNumber(number) {
+            if (currentInput <= 4) {
+                document.getElementById('pin' + currentInput).value = number;
+                currentInput++;
+            }
+        }
+
+        function clearPin() {
+            for (let i = 1; i <= 4; i++) {
+                document.getElementById('pin' + i).value = '';
+            }
+            currentInput = 1;
+        }
+
+        function deleteNumber() {
+            if (currentInput > 1) {
+                currentInput--;
+                document.getElementById('pin' + currentInput).value = '';
+            }
+        }
+
+        function verifyPin() {
+            let pin = '';
+            for (let i = 1; i <= 4; i++) {
+                pin += document.getElementById('pin' + i).value;
+            }
+            if (pin.length === 4) {
+                alert('PIN verified: ' + pin);
+            } else {
+                alert('Please enter a 4-digit PIN.');
+            }
+        }
+
+        function updateResendCode() {
+            if (resendTime > 0) {
+                resendTime--;
+                const minutes = Math.floor(resendTime / 60);
+                const seconds = resendTime % 60;
+                resendElement.innerText = `Resend Code (${minutes}:${seconds < 10 ? '0' + seconds : seconds})`;
+            } else {
+                clearInterval(resendInterval);
+                resendElement.innerText = "Resend Code";
+                resendElement.classList.add('active');
+                resendElement.setAttribute('onclick', 'resendCode()');
+            }
+        }
+
+        // Initialize resend timer
+        updateResendCode();
+    </script>
+</body>
+</html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Inbox</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome -->
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .inbox-container {
+            width: 100%;
+            max-width: 500px;
+            height: 100vh;
+            background-color: #f2fafa;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .header {
+            background-color: #130b33;
+            color: white;
+            padding: 15px;
+            font-size: 24px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .header i {
+            position: absolute;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .header .back-arrow {
+            left: 15px;
+            color: white;
+        }
+
+        .header .search-btn {
+            right: 15px;
+            color: white;
+        }
+
+        .header .header-title {
+            flex-grow: 1;
+            text-align: left;
+            margin-left: 28px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-around;
+            padding: 25px 30px;
+            background-color: #999;
+        }
+
+        .button {
+            background-color: #333;
+            color: white;
+            border: 2px solid #ddd;
+            padding: 10px 60px;
+            font-size: 16px;
+            border-radius: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .button:hover {
+            background-color: white;
+            color: black;
+        }
+
+        .chat-box-container {
+            flex-grow: 1;
+            padding: 20px;
+            background-color: #999;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            padding-bottom: 0px; /* Add padding to make space for the bottom nav */
+           
+        }
+
+        .chat-list {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #eee; /* Border around the chat list */
+            border-radius: 2px;
+            overflow-y:auto;
+            background-color: #f2f2f2;
+        }
+
+        .chat-item {
+            background-color: white;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ddd; /* Border separating each chat item */
+            cursor: pointer;
+        }
+
+        .chat-item:last-child {
+            border-bottom: none; /* Remove border from the last chat item */
+        }
+
+        .chat-item:hover {
+            background-color: #f1f1f1;
+        }
+
+        .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #ccc;
+            margin-right: 10px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .chat-info {
+            flex-grow: 1;
+        }
+
+        .chat-info .name {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .chat-info .last-message {
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .chat-info .message-time {
+            color: #999;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .unread-indicator {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color:#333;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 20px;
+        }
+
+        .bottom-nav {
+            position: absolute;
+            bottom: 0;
+            left: 50px;  /* Add space on the left */
+            right: 50px; /* Add space on the right */
+            width: calc(100% - 100px); /* Adjust width to account for the left and right spacing */
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 0;
+            background-color: #333;
+            border-bottom-left-radius: 25px;
+            border-bottom-right-radius: 25px;
+            border-top-left-radius: 25px;
+            border-top-right-radius: 25px;
+        }
+
+        .nav-item {
+            text-align: center;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .nav-item:hover {
+            color: white;
+        }
+
+        .nav-item i {
+            display: block;
+            font-size: 20px;
+            margin-bottom: 1px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="inbox-container">
+    <div class="header">
+        <i class="fas fa-arrow-left back-arrow"></i>
+        <div class="header-title">Inbox</div>
+        <i class="fas fa-search search-btn"></i>
+    </div>
+    <div class="button-container">
+        <button class="button">Chat</button>
+        <button class="button">Call</button>
+    </div>
+    <div class="chat-box-container">
+        <div class="chat-list">
+            <div class="chat-item">
+                <div class="avatar" style="background-image: url('https://randomuser.me/api/portraits/men/32.jpg');"></div>
+                <div class="chat-info">
+                    <div class="name">John Doe</div>
+                    <div class="last-message">Hey, are you available?</div>
+                    <div class="message-time">10:30 AM</div>
+                </div>
+                <div class="unread-indicator">3</div>
+            </div>
+            <div class="chat-item">
+                <div class="avatar" style="background-image: url('https://randomuser.me/api/portraits/women/44.jpg');"></div>
+                <div class="chat-info">
+                    <div class="name">Jane Smith</div>
+                    <div class="last-message">Can you send me the report?</div>
+                    <div class="message-time">9:45 AM</div>
+                </div>
+                <div class="unread-indicator">1</div>
+            </div>
+            <div class="chat-item">
+                <div class="avatar" style="background-image: url('https://randomuser.me/api/portraits/women/68.jpg');"></div>
+                <div class="chat-info">
+                    <div class="name">Emily Johnson</div>
+                    <div class="last-message">Looking forward to our meeting.</div>
+                    <div class="message-time">Yesterday</div>
+                </div>
+                <div class="unread-indicator">2</div>
+            </div>
+            <div class="chat-item">
+                <div class="avatar" style="background-image: url('https://randomuser.me/api/portraits/men/76.jpg');"></div>
+                <div class="chat-info">
+                    <div class="name">Michael Brown</div>
+                    <div class="last-message">Don't forget our lunch tomorrow.</div>
+                    <div class="message-time">Yesterday</div>
+                </div>
+                <div class="unread-indicator">4</div>
+            </div>
+            <div class="chat-item">
+                <div class="avatar" style="background-image: url('https://randomuser.me/api/portraits/women/12.jpg');"></div>
+                <div class="chat-info">
+                    <div class="name">Sarah Lee</div>
+                    <div class="last-message">Can you review the document?</div>
+                    <div class="message-time">2 days ago</div>
+                </div>
+                <div class="unread-indicator">5</div>
+            </div>
+        </div>
+        <div class="bottom-nav">
+            <div class="nav-item">
+                <i class="fas fa-window-maximize"></i> <!-- Window icon -->
+                Home
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-file"></i> <!-- File icon -->
+                Files
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-compass"></i> <!-- Compass icon -->
+                Explore
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-file-alt"></i> <!-- Document icon -->
+                Documents
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-plus"></i> <!-- Plus icon -->
+                Add
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-question"></i> <!-- Question mark icon -->
+                Help
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
